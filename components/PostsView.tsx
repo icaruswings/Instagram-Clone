@@ -3,6 +3,8 @@ import { FlatList, RefreshControl } from "react-native";
 import StoriesView from "./StoriesView";
 import PostView from "./PostView";
 
+import POSTS from "../lib/data.json";
+
 export default function PostsView() {
   const [refreshing, setRefreshing] = useState(false);
 
@@ -17,14 +19,8 @@ export default function PostsView() {
   return (
     <FlatList
       ListHeaderComponent={<StoriesView />}
-      data={[...new Array(50)]}
-      renderItem={({ item, index }) =>
-        PostView({
-          caption: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vehicula dictum nibh. Quisque a eros at lectus posuere pharetra. Cras blandit egestas diam in aliquet. Curabitur sodales euismod sapien eu lobortis. Sed vitae sem at nunc interdum faucibus. Vivamus semper neque nec congue luctus. Ut porttitor eu nisi condimentum commodo. Nullam fermentum lectus ipsum, eget pharetra turpis accumsan sed. Integer aliquam sit amet erat ut commodo. Aliquam sed sem quam. Pellentesque vestibulum felis at scelerisque condimentum. Proin tempor ultricies lorem quis mollis.`,
-          location: "Melbourne, Australia",
-          user: { username: "icaruswings138" },
-        })
-      }
+      data={[...POSTS]}
+      renderItem={({ item, index }) => PostView({ ...item })}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} />}
     />
   );
